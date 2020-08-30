@@ -10,10 +10,10 @@ task import_csv: :environment do
   puts "Merchant records destroyed"
   Invoice.destroy_all
   puts "Invoice records destroyed"
-  Item.destroy_all
-  puts "Item records destroyed"
   Transaction.destroy_all
   puts "Transaction records destroyed"
+  Item.destroy_all
+  puts "Item records destroyed"
   InvoiceItem.destroy_all
   puts "InvoiceItem records destroyed"
 
@@ -35,16 +35,6 @@ task import_csv: :environment do
   end
   puts "Customers table seeded"
 
-  puts "Seeding Items table"
-  get_seed_params('items').each do |params|
-    params[:id] = params[:id].to_i
-    params[:invoice_id] = params[:invoice_id].to_i
-    params[:merchant_id] = params[:merchant_id].to_i
-    params[:unit_price] = params[:unit_price].to_f * 0.01
-    Item.create(params)
-  end
-  puts "Items table seeded"
-
   puts "Seeding Merchants table"
   get_seed_params('merchants').each do |params|
     params[:id] = params[:id].to_i
@@ -61,6 +51,15 @@ task import_csv: :environment do
   end
   puts "Invoice table seeded"
 
+  puts "Seeding Items table"
+  get_seed_params('items').each do |params|
+    params[:id] = params[:id].to_i
+    params[:merchant_id] = params[:merchant_id].to_i
+    params[:unit_price] = (params[:unit_price].to_f * 0.01).round(2)
+    Item.create(params)
+  end
+  puts "Items table seeded"
+
   puts "Seeding Transactions table"
   get_seed_params('transactions').each do |params|
     params[:id] = params[:id].to_i
@@ -74,7 +73,7 @@ task import_csv: :environment do
     params[:item_id] = params[:item_id].to_i
     params[:invoice_id] = params[:invoice_id].to_i
     params[:quantity] = params[:quantity].to_i
-    params[:unit_price] = params[:unit_price].to_f * 0.01
+    params[:unit_price] = (params[:unit_price].to_f * 0.01).round(2)
     InvoiceItem.create(params)
   end
   puts "InvoiceItems table seeded"
