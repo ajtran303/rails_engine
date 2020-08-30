@@ -48,10 +48,8 @@ ActiveRecord::Schema.define(version: 2020_08_30_200707) do
     t.string "description"
     t.float "unit_price"
     t.bigint "merchant_id"
-    t.bigint "invoice_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["invoice_id"], name: "index_items_on_invoice_id"
     t.index ["merchant_id"], name: "index_items_on_merchant_id"
   end
 
@@ -75,7 +73,6 @@ ActiveRecord::Schema.define(version: 2020_08_30_200707) do
   add_foreign_key "invoice_items", "items"
   add_foreign_key "invoices", "customers"
   add_foreign_key "invoices", "merchants"
-  add_foreign_key "items", "invoices"
   add_foreign_key "items", "merchants"
   add_foreign_key "transactions", "invoices"
 end

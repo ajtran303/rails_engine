@@ -5,7 +5,6 @@ class CreateItems < ActiveRecord::Migration[5.2]
       t.string :description
       t.float :unit_price
       t.references :merchant, foreign_key: true
-      t.references :invoice, foreign_key: true
 
       t.timestamps
     end
