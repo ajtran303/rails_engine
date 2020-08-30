@@ -10,8 +10,8 @@ task import_csv: :environment do
   puts "Merchant records destroyed"
   Invoice.destroy_all
   puts "Invoice records destroyed"
-  Transaction.destroy_all
-  puts "Transaction records destroyed"
+  Purchase.destroy_all
+  puts "Purchase records destroyed"
   Item.destroy_all
   puts "Item records destroyed"
   InvoiceItem.destroy_all
@@ -60,12 +60,12 @@ task import_csv: :environment do
   end
   puts "Items table seeded"
 
-  puts "Seeding Transactions table"
+  puts "Seeding Purchases table"
   get_seed_params('transactions').each do |params|
     params[:id] = params[:id].to_i
-    Transaction.create(params)
+    Purchase.create(params)
   end
-  puts "Transactions table seeded"
+  puts "Purchases table seeded"
 
   puts "Seeding InvoiceItems table"
   get_seed_params('invoice_items').each do |params|
