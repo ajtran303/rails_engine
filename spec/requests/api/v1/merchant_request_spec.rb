@@ -10,10 +10,11 @@ RSpec.describe "Merchants API" do
     get "/api/v1/merchants/#{id}"
     expect(response).to be_successful
 
-    item = parse_body(response)
-    expect(item[:data][:id]).to eq(id.to_s)
-    expect(item[:data][:type]).to eq("merchant")
-    expect(item[:attributes]).to have_key(:name)
+    merchant = parse_body(response)
+
+    expect(merchant[:data][:id]).to eq(id.to_s)
+    expect(merchant[:data][:type]).to eq("merchant")
+    expect(merchant[:data][:attributes]).to have_key(:name)
   end
 
   it "sends a list of all merchants" do
