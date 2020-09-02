@@ -8,6 +8,5 @@ RSpec.describe Purchase do
   end
   describe "associations" do
     it { should belong_to :invoice }
-    it { should have_many(:purchases).through(:invoice) }
   end
 end
