@@ -29,11 +29,11 @@ FactoryBot.define do
     result { rand(2).zero? ? "success" : "failed" }
   end
 
-  # factory :invoice_item do
-  #   invoice
-  #   item
-  #   quantity {}
-  #   unit_price {}
-  # end
+  factory :invoice_item do
+    invoice
+    item
+    quantity {}
+    unit_price {}
+  end
 
 end
