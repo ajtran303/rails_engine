@@ -13,10 +13,10 @@ RSpec.describe "Items API" do
     item = parse_body(response)
     expect(item[:data][:id]).to eq(id.to_s)
     expect(item[:data][:type]).to eq("item")
-    expect(item[:attributes]).to have_key(:name)
-    expect(item[:attributes]).to have_key(:description)
-    expect(item[:attributes]).to have_key(:unit_price)
-    expect(item[:attributes]).to have_key(:merchant_id)
+    expect(item[:data][:attributes]).to have_key(:name)
+    expect(item[:data][:attributes]).to have_key(:description)
+    expect(item[:data][:attributes]).to have_key(:unit_price)
+    expect(item[:data][:attributes]).to have_key(:merchant_id)
   end
 
   it "sends a list of all items" do
