@@ -13,7 +13,6 @@ class Merchant < ApplicationRecord
       .merge(Purchase.successful)
       .merge(Invoice.shipped)
       .group(:id)
-
-    merchant_invoices.sum(&:revenue)
+      .sum(&:revenue)
   end
 end
