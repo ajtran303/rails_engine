@@ -8,7 +8,7 @@ RSpec.describe "Create Merchants CRUD API" do
     merchant_params = {name: new_merchant.name}
     headers = {"CONTENT_TYPE" => "application/json"}
 
-    post "/api/v1/merchants", headers: headers, params: JSON.generate({merchant: merchant_params})
+    post "/api/v1/merchants", headers: headers, params: JSON.generate(merchant_params)
 
     expect(Merchant.count).to eq(1)
     merchant = Merchant.last

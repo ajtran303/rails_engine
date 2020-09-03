@@ -13,7 +13,7 @@ RSpec.describe "Create Items CRUD API" do
                   }
     headers = {"CONTENT_TYPE" => "application/json"}
 
-    post "/api/v1/items", headers: headers, params: JSON.generate({item: item_params})
+    post "/api/v1/items", headers: headers, params: JSON.generate(item_params)
 
     expect(Item.count).to eq(1)
     item = Item.last

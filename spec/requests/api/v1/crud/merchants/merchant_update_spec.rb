@@ -7,7 +7,7 @@ RSpec.describe "Update Merchants CRUD API" do
     merchant_params = { name: "New Name" }
     headers = {"CONTENT_TYPE" => "application/json"}
 
-    patch "/api/v1/merchants/#{id}", headers: headers, params: JSON.generate({merchant: merchant_params})
+    patch "/api/v1/merchants/#{id}", headers: headers, params: JSON.generate(merchant_params)
     merchant = Merchant.find_by(id: id)
 
     expect(response).to be_successful

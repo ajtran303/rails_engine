@@ -7,7 +7,7 @@ RSpec.describe "Update Items CRUD API" do
     item_params = { name: "New Name" }
     headers = {"CONTENT_TYPE" => "application/json"}
 
-    patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate({item: item_params})
+    patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate(item_params)
     item = Item.find_by(id: id)
 
     expect(response).to be_successful
