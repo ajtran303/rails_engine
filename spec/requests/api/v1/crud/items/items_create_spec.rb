@@ -1,10 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Create Items CRUD API" do
-  def parse_body(response)
-    JSON.parse(response.body, symbolize_names: :true)
-  end
-
   it "can create an item" do
     new_item = build_stubbed(:item, merchant: create(:merchant))
     expect(Item.count).to eq(0)

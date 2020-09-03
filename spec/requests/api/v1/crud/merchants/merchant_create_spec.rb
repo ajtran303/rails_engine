@@ -1,10 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Create Merchants CRUD API" do
-  def parse_body(response)
-    JSON.parse(response.body, symbolize_names: :true)
-  end
-
   it "can create a merchant" do
     new_merchant = build_stubbed(:merchant)
     expect(Merchant.count).to eq(0)
