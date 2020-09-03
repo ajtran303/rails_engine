@@ -60,6 +60,19 @@ class Merchant < ApplicationRecord
       .limit(quantity_of_merchants)
   end
 
+  def self.revenue_between(start_date, end_date)
+    sum_aggregate = "SUM(invoice_items.quantity * invoice_items.unit_price)"
+    select_query = "merchants.*, #{sum_aggregate} AS revenue"
+
+    select(select_query)
+      .joins(invoices: [:invoice_items, :purchases])
+      .merge(Purchase.successful)
+      .merge(Invoice.shipped)
+      .group(:id)
+      .where("date(invoices.created_at) BETWEEN ? AND ? ", start_date, end_date)
+      .sum(&:revenue)
+  end
+
   def total_revenue
     sum_aggregate = "SUM(invoice_items.quantity * invoice_items.unit_price)"
     select_query = "invoices.*, #{sum_aggregate} AS revenue"
