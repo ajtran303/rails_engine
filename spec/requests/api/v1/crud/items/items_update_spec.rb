@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Create Items CRUD API" do
+RSpec.describe "Update Items CRUD API" do
   it "can update an existing item" do
     id = create(:item).id
     previous_name = Item.last.name
