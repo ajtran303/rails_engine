@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
 
+      get '/revenue', to: 'biz_int#revenue_over_time'
+
       namespace :items do
         get '/:id/merchant', to: 'merchants#index'
         get '/find', to: 'search#show'
