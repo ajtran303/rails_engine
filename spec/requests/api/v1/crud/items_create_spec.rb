@@ -6,7 +6,7 @@ RSpec.describe "Create Items CRUD API" do
   end
 
   it "can create an item" do
-    new_item = build_stubbed(:item)
+    new_item = build_stubbed(:item, merchant: create(:merchant))
     expect(Item.count).to eq(0)
 
     item_params = {
