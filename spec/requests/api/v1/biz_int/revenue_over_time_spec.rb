@@ -8,13 +8,13 @@ RSpec.describe "Get All Revenue over a period of Time API" do
   before :each do
     @merchant1 = create(:merchant)
     item = create(:item, merchant: @merchant1, unit_price: 100.0)
-    invoice1 = create(:invoice, merchant: @merchant1, status: "shipped")
+    invoice1 = create(:invoice, merchant: @merchant1, status: "shipped", created_at: DateTime.now.prev_day.to_time)
     sale = create(:invoice_item, invoice: invoice1, item: item, quantity: 2, unit_price: 90.0)
     purchase = create(:purchase, invoice: invoice1, result: "success")
 
     @merchant2 = create(:merchant)
     item = create(:item, merchant: @merchant2, unit_price: 100.0)
-    invoice2 = create(:invoice, merchant: @merchant2, status: "shipped")
+    invoice2 = create(:invoice, merchant: @merchant2, status: "shipped", created_at: DateTime.now.next_day.to_time)
     sale = create(:invoice_item, invoice: invoice2, item: item, quantity: 2, unit_price: 100.0)
     purchase = create(:purchase, invoice: invoice2, result: "success")
 
