@@ -18,8 +18,8 @@ Rails.application.routes.draw do
         get '/most_items', to: 'biz_int#most_items'
       end
 
-      resources :items, only: [:show, :index]
-      resources :merchants, only: [:show, :index]
+      resources :items, only: [:show, :index, :create, :update, :destroy]
+      resources :merchants, only: [:show, :index, :create, :update, :destroy]
 
     end
   end
