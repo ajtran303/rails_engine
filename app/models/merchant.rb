@@ -34,7 +34,7 @@ class Merchant < ApplicationRecord
     where("date(#{attribute}) = ?", date)
   end
 
-  def self.top_selling_merchants(quantity)
+  def self.merchants_with_most_revenue(quantity)
     sum_aggregate = "SUM(invoice_items.quantity * invoice_items.unit_price)"
     select_query = "merchants.*, #{sum_aggregate} AS revenue"
 

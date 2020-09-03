@@ -5,7 +5,7 @@ class Api::V1::Merchants::BizIntController < ApplicationController
   end
 
   def most_revenue
-    merchants = Merchant.top_selling_merchants(params[:quantity])
+    merchants = Merchant.merchants_with_most_revenue(params[:quantity])
     render json: MerchantSerializer.new(merchants).serialized_json
   end
 end
