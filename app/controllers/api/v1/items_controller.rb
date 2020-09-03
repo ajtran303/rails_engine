@@ -6,4 +6,15 @@ class Api::V1::ItemsController < ApplicationController
   def index
     render json: ItemSerializer.new(Item.all).serialized_json
   end
+
+  def create
+    item = Item.create(item_params)
+    render json: ItemSerializer.new(item).serialized_json
+  end
+
+  private
+
+  def item_params
+    params.require(:item).permit(:name, :description, :unit_price, :merchant_id)
+  end
 end
