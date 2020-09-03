@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       end
 
       resources :items, only: [:show, :index, :create]
-      resources :merchants, only: [:show, :index]
+      resources :merchants, only: [:show, :index, :create]
 
     end
   end
