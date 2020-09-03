@@ -6,16 +6,16 @@ RSpec.describe "Get Merchants with Most Revenue API" do
   end
 
   before :each do
-    @merchant2 = create(:merchant)
-    item = create(:item, merchant: @merchant2, unit_price: 100.0)
-    invoice = create(:invoice, merchant: @merchant2, status: "shipped")
-    sale = create(:invoice_item, invoice: invoice, item: item, quantity: 2, unit_price: 100.0)
-    purchase = create(:purchase, invoice: invoice, result: "success")
-
     @merchant1 = create(:merchant)
     item = create(:item, merchant: @merchant1, unit_price: 100.0)
     invoice = create(:invoice, merchant: @merchant1, status: "shipped")
     sale = create(:invoice_item, invoice: invoice, item: item, quantity: 2, unit_price: 90.0)
+    purchase = create(:purchase, invoice: invoice, result: "success")
+
+    @merchant2 = create(:merchant)
+    item = create(:item, merchant: @merchant2, unit_price: 100.0)
+    invoice = create(:invoice, merchant: @merchant2, status: "shipped")
+    sale = create(:invoice_item, invoice: invoice, item: item, quantity: 2, unit_price: 100.0)
     purchase = create(:purchase, invoice: invoice, result: "success")
   end
 
