@@ -39,7 +39,7 @@ class Merchant < ApplicationRecord
     select_query = "merchants.*, #{sum_aggregate} AS revenue"
 
     select(select_query)
-      .joins(:invoices, :invoice_items, :purchases)
+      .joins(invoices: [:invoice_items, :purchases])
       .merge(Purchase.successful)
       .merge(Invoice.shipped)
       .group(:id)
