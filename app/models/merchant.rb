@@ -3,6 +3,8 @@ class Merchant < ApplicationRecord
 
   has_many :items
   has_many :invoices
+  has_many :invoice_items, through: :invoices
+  has_many :purchases, through: :invoices
 
   def self.search(params)
     return find_by(params) unless find_by(params).nil?
@@ -32,11 +34,24 @@ class Merchant < ApplicationRecord
     where("date(#{attribute}) = ?", date)
   end
 
+  def self.top_selling_merchants(quantity)
+    sum_aggregate = "SUM(invoice_items.quantity * invoice_items.unit_price)"
+    select_query = "merchants.*, #{sum_aggregate} AS revenue"
+
+    select(select_query)
+      .joins(:invoices, :invoice_items, :purchases)
+      .merge(Purchase.successful)
+      .merge(Invoice.shipped)
+      .group(:id)
+      .order("revenue DESC")
+      .limit(quantity)
+  end
+
   def total_revenue
     sum_aggregate = "SUM(invoice_items.quantity * invoice_items.unit_price)"
     select_query = "invoices.*, #{sum_aggregate} AS revenue"
 
-    merchant_invoices = self.invoices.select(select_query)
+    invoices.select(select_query)
       .joins(:invoice_items, :purchases)
       .merge(Purchase.successful)
       .merge(Invoice.shipped)
