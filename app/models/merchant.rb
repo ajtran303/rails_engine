@@ -34,7 +34,7 @@ class Merchant < ApplicationRecord
     where("date(#{attribute}) = ?", date)
   end
 
-  def self.merchants_with_most_revenue(quantity)
+  def self.merchants_with_most_revenue(quantity_of_merchants)
     sum_aggregate = "SUM(invoice_items.quantity * invoice_items.unit_price)"
     select_query = "merchants.*, #{sum_aggregate} AS revenue"
 
@@ -44,7 +44,20 @@ class Merchant < ApplicationRecord
       .merge(Invoice.shipped)
       .group(:id)
       .order("revenue DESC")
-      .limit(quantity)
+      .limit(quantity_of_merchants)
+  end
+
+  def self.merchants_with_most_items_sold(quantity_of_merchants)
+    sum_aggregate = "SUM(invoice_items.quantity)"
+    select_query = "merchants.*, #{sum_aggregate} AS items_sold"
+
+    select(select_query)
+      .joins(invoices: [:invoice_items, :purchases])
+      .merge(Purchase.successful)
+      .merge(Invoice.shipped)
+      .group(:id)
+      .order("items_sold DESC")
+      .limit(quantity_of_merchants)
   end
 
   def total_revenue
