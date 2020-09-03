@@ -3,8 +3,6 @@ class Merchant < ApplicationRecord
 
   has_many :items
   has_many :invoices
-  has_many :invoice_items, through: :invoices
-  has_many :purchases, through: :invoices
 
   def self.search(params)
     return find_by(params) unless find_by(params).nil?
