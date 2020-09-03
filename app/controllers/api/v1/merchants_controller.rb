@@ -12,6 +12,12 @@ class Api::V1::MerchantsController < ApplicationController
     render json: MerchantSerializer.new(merchant).serialized_json
   end
 
+  def update
+    merchant = Merchant.find(params[:id])
+    merchant.update(merchant_params)
+    render json: MerchantSerializer.new(merchant).serialized_json
+  end
+
   private
 
   def merchant_params
